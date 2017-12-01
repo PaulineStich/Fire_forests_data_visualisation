@@ -1,0 +1,5 @@
+@font-face {
+font-family: 'circular-black';
+src: url('../assets/typo/circular_font/otf/circular-black.otf') format('truetype'),
+     url('../assets/typo/circular_font/woff/circular-black.woff') format('woff'),
+     url('../assets/typo/circular_font/ttf/circular-black.ttf')  format('truetype');
