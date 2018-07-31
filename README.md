@@ -23,3 +23,10 @@ npm run prod | minifies js and scss files
 * [Blender](https://www.blender.org/) - Used to create the tree and exported with a json format (Remi Elliet).
 * [GSAP](https://greensock.com/gsap) - GSAP easings
 * [NASA](https://earthdata.nasa.gov/earth-observation-data/near-real-time/firms/active-fire-data) - Data 
+
+## Authors & credits
+
+* Remi Elliet - designer
+* Pauline Stichelbaut - developer
+
+Gobelins, BDDI 2017-2018
