@@ -1,8 +1,21 @@
 # Data visualisation
 
-Three.js data visualisation **climate change** theme. 
+Three.js data visualisation **climate change** theme :earth_africa:.
 Earths latest forest fire datas.
 Collaboration with Remi Elliet, designer & student at Gobelins, BDDI project.
+
+## How to run this project
+first install all node modules, by writing
+```npm install```
+
+then you can
+
+npm | description
+------------ | -------------
+npm run build | builds everything and is watching for changes
+npm run dev | opens a local server running our application
+npm run prod | minifies js and scss files
+
 
 ## Built With
 
