@@ -1,0 +1,48 @@
+{
+  "name": "Data-visualisation",
+  "version": "1.0.0",
+  "description": "Three.js data visualisation **climate change** theme.  Earths latest forest fire datas. Collaboration with Remi Elliet, designer & student at Gobelins, BDDI project.",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --config webpack.config.js --watch",
+    "dev": "webpack-dev-server --open webpack",
+    "prod": "NODE_ENV=production npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PaulineStich/Data-visualisation.git"
+  },
+  "keywords": [],
+  "author": "Pauline Stichelbaut",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PaulineStich/Data-visualisation/issues"
+  },
+  "homepage": "https://github.com/PaulineStich/Data-visualisation#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-minify-webpack-plugin": "^0.3.1",
+    "babel-preset-env": "^1.7.0",
+    "css-loader": "^1.0.0",
+    "file-loader": "^1.1.11",
+    "gulp": "^3.9.1",
+    "gulp-cli": "^2.0.1",
+    "gulp-livereload": "^3.8.1",
+    "gulp-ruby-sass": "^3.0.0",
+    "gulp-uglify": "^3.0.0",
+    "image-webpack-loader": "^4.3.1",
+    "mini-css-extract-plugin": "^0.4.1",
+    "node-sass": "^4.9.2",
+    "optimize-css-assets-webpack-plugin": "^5.0.0",
+    "purify-css": "^1.2.5",
+    "purifycss-webpack": "^0.7.0",
+    "sass-loader": "^7.0.3",
+    "style-loader": "^0.21.0",
+    "uglifyjs-webpack-plugin": "^1.2.7",
+    "webpack": "^4.16.3",
+    "webpack-cli": "^3.1.0",
+    "webpack-closure-compiler": "^2.1.6",
+    "webpack-dev-server": "^3.1.5"
+  }
+}
