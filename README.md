@@ -1,5 +1,7 @@
 # Data visualisation
 
+![GitHub Preview](/src/assets/img/github-preview.png)
+
 Three.js data visualisation **climate change** theme :earth_africa:.
 Earths latest forest fire datas.
 Collaboration with Remi Elliet, designer & student at Gobelins, BDDI project.
