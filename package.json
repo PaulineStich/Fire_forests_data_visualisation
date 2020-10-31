@@ -1,11 +1,11 @@
 {
   "name": "Data-visualisation",
   "version": "1.0.0",
-  "description": "Three.js data visualisation **climate change** theme.  Earths latest forest fire datas. Collaboration with Remi Elliet, designer & student at Gobelins, BDDI project.",
+  "description": "Three.js data visualisation.  Earths latest forest fire datas. Collaboration with Remi Elliet, designer & student at Gobelins, BDDI project.",
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.config.js --watch",
-    "dev": "webpack-dev-server --open webpack",
+    "dev": "webpack-dev-server --open webpack --watch",
     "prod": "NODE_ENV=production npm run build"
   },
   "repository": {
@@ -33,7 +33,7 @@
     "gulp-uglify": "^3.0.0",
     "image-webpack-loader": "^4.3.1",
     "mini-css-extract-plugin": "^0.4.1",
-    "node-sass": "^4.9.2",
+    "node-sass": "^4.14.1",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
     "purify-css": "^1.2.5",
     "purifycss-webpack": "^0.7.0",
@@ -43,6 +43,6 @@
     "webpack": "^4.16.3",
     "webpack-cli": "^3.1.0",
     "webpack-closure-compiler": "^2.1.6",
-    "webpack-dev-server": "^3.1.5"
+    "webpack-dev-server": "^3.11.0"
   }
 }
