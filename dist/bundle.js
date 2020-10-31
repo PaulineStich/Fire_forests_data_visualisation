@@ -117,7 +117,7 @@ var loaded = false;
 // ortho camera
 var frustumSize = 600;
 
-// points 
+// points
 var numberFires = void 0;
 var latitudeCoord = [],
     longitudeCoord = [],
@@ -139,10 +139,10 @@ var sprites = [],
     spriteArbre3 = void 0,
     spriteArbre4 = void 0;
 var datasSprites = {
-	humains: "0%",
-	dataJour: "0",
-	dataAnnee: "0",
-	dataGaz: "0"
+  humains: "0%",
+  dataJour: "0",
+  dataAnnee: "0",
+  dataGaz: "0"
 };
 
 // mouse
@@ -160,582 +160,585 @@ init();
 animate();
 
 function init() {
-	container = document.createElement('div');
-	document.body.appendChild(container);
+  container = document.createElement("div");
+  document.body.appendChild(container);
 
-	//scene
-	scene = new THREE.Scene();
+  //scene
+  scene = new THREE.Scene();
 
-	// camera
-	var aspect = width / height;
-	//  left, right, top, bottom, near, far
-	camera = new THREE.OrthographicCamera(frustumSize * aspect / -2, frustumSize * aspect / 2, frustumSize / 2, frustumSize / -2, 0.10, 2000);
-	//camera = new THREE.PerspectiveCamera( 2, width / height, 1, 50000 ); 
-	camera.position.set(-580.3883610772257, 710.3485308544814, 498.5522189690559);
-	camera.zoom = 1;
-	//camera.position.set(0,300,1000);
+  // camera
+  var aspect = width / height;
+  //  left, right, top, bottom, near, far
+  camera = new THREE.OrthographicCamera(frustumSize * aspect / -2, frustumSize * aspect / 2, frustumSize / 2, frustumSize / -2, 0.1, 2000);
+  //camera = new THREE.PerspectiveCamera( 2, width / height, 1, 50000 );
+  camera.position.set(-580.3883610772257, 710.3485308544814, 498.5522189690559);
+  camera.zoom = 1;
+  //camera.position.set(0,300,1000);
 
-	// helpers
-	/*
- 	var axisHelper = new THREE.AxisHelper( 5 );
- 	scene.add(axisHelper);
- 		// gridhelper
- 	let gridHelper = new THREE.GridHelper( 1000, 20 );
- 	scene.add(gridHelper);
- 		var helper = new THREE.CameraHelper( camera );
- 	scene.add( helper );
- 
- */
+  // helpers
+  /*
+  	var axisHelper = new THREE.AxisHelper( 5 );
+  	scene.add(axisHelper);
+  		// gridhelper
+  	let gridHelper = new THREE.GridHelper( 1000, 20 );
+  	scene.add(gridHelper);
+  		var helper = new THREE.CameraHelper( camera );
+  	scene.add( helper );
+  
+  */
 
-	// CanvasRenderer
-	renderer = new THREE.WebGLRenderer({ antialias: true });
-	renderer.setClearColor(0xf6f7f4, 1);
-	renderer.setPixelRatio(window.devicePixelRatio);
-	renderer.setSize(window.innerWidth, window.innerHeight);
-	container.appendChild(renderer.domElement);
+  // WebGLRenderer
+  renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setClearColor(0xf6f7f4, 1);
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  container.appendChild(renderer.domElement);
 
-	// stats
-	/*stats = new Stats();
- stats.domElement.style.position = 'absolute';
- stats.domElement.style.top = '0px';
- container.appendChild(stats.domElement);*/
+  // stats
+  //   stats = new Stats();
+  //   stats.domElement.style.position = "absolute";
+  //   stats.domElement.style.top = "0px";
+  //   container.appendChild(stats.domElement);
 
-	// controls
-	controls = new THREE.OrbitControls(camera, renderer.domElement);
+  // controls
+  controls = new THREE.OrbitControls(camera, renderer.domElement);
 
-	// lights
-	var light = new THREE.AmbientLight(0xffffff, 1.8); // soft white light
-	scene.add(light);
+  // lights
+  var light = new THREE.AmbientLight(0xffffff, 1.8); // soft white light
+  scene.add(light);
 
-	// loading manager
-	loadingManager = new THREE.LoadingManager();
-	loadingManager.onStart = function (url, itemsLoaded, itemsTotal) {
-		//console.log( 'Started loading file: ' + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' )
-	};
+  // loading manager
+  loadingManager = new THREE.LoadingManager();
+  loadingManager.onStart = function (url, itemsLoaded, itemsTotal) {
+    //console.log( 'Started loading file: ' + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' )
+  };
 
-	loadingManager.onProgress = function (url, itemsLoaded, itemsTotal) {
-		//console.log( 'Loading file: ' + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' )
+  loadingManager.onProgress = function (url, itemsLoaded, itemsTotal) {
+    //console.log( 'Loading file: ' + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' )
 
-		var timelineLoader = new TimelineMax();
+    var timelineLoader = new TimelineMax();
 
-		timelineLoader.to(itemsLoading, 0.6, {
-			totalPourcentage: "100",
-			roundProps: "totalPourcentage",
-			onUpdate: updateHandlerLoading,
-			ease: Circ.easeInOut
-		});
+    timelineLoader.to(itemsLoading, 0.6, {
+      totalPourcentage: "100",
+      roundProps: "totalPourcentage",
+      onUpdate: updateHandlerLoading,
+      ease: Circ.easeInOut
+    });
 
-		function updateHandlerLoading() {
-			var loadingNumber = document.getElementById("loaderNumber");
-			//loadingNumber.innerHTML = (itemsLoaded / itemsTotal * 100) + '%' 
-			loadingNumber.innerHTML = itemsLoading.totalPourcentage + " %";
-		}
+    function updateHandlerLoading() {
+      var loadingNumber = document.getElementById("loaderNumber");
+      //loadingNumber.innerHTML = (itemsLoaded / itemsTotal * 100) + '%'
+      loadingNumber.innerHTML = itemsLoading.totalPourcentage + " %";
+    }
 
-		if (itemsLoaded === itemsTotal) {
-			loaded = true;
-		}
-	};
+    if (itemsLoaded === itemsTotal) {
+      loaded = true;
+    }
+  };
 
-	loadingManager.onLoad = function () {
-		console.log('Loading complete!');
+  loadingManager.onLoad = function () {
+    console.log("Loading complete!");
 
-		if (loaded) {
-			var timelineComplete = new TimelineMax();
+    if (loaded) {
+      var timelineComplete = new TimelineMax();
 
-			timelineComplete.to("#loader", 0.5, {
-				delay: 0.4,
-				opacity: 0,
-				ease: Sine.easeInOut,
-				display: "none"
-			}).to(".svg", 0.9, {
-				opacity: 0.04,
-				ease: Circ.easeOut
-			}, 3).to(".svg", 0.9, {
-				opacity: "0",
-				display: "none",
-				ease: Circ.easeOut
-			}, 6);
+      timelineComplete.to("#loader", 0.5, {
+        delay: 0.4,
+        opacity: 0,
+        ease: Sine.easeInOut,
+        display: "none"
+      });
+      // .to(
+      //   ".svg",
+      //   0.9,
+      //   {
+      //     opacity: 0.04,
+      //     ease: Circ.easeOut,
+      //   },
+      //   3
+      // )
+      // .to(
+      //   ".svg",
+      //   0.9,
+      //   {
+      //     opacity: "0",
+      //     display: "none",
+      //     ease: Circ.easeOut,
+      //   },
+      //   6
+      // );
 
-			introCamera();
+      introCamera();
 
-			// zoom
-			var zoom = { value: camera.zoom };
-			var zoomDefault = { value: 1.24 };
+      // zoom
+      var zoom = { value: camera.zoom };
+      var zoomDefault = { value: 1.24 };
 
-			var tweenDefault = new TWEEN.Tween(zoom).to(zoomDefault, 4200).easing(TWEEN.Easing.Cubic.InOut);
+      var tweenDefault = new TWEEN.Tween(zoom).to(zoomDefault, 4200).easing(TWEEN.Easing.Cubic.InOut);
 
-			tweenDefault.onUpdate(function () {
-				camera.zoom = zoom.value;
-			});
-			tweenDefault.start();
-		}
-	};
+      tweenDefault.onUpdate(function () {
+        camera.zoom = zoom.value;
+      });
+      tweenDefault.start();
+    }
+  };
 
-	// MAKE
-	makeArbre();
-	makeData();
-	makeGlowingParticles();
-	makeSpriteArbre();
+  // MAKE
+  makeArbre();
+  makeData();
+  makeGlowingParticles();
+  makeSpriteArbre();
 
-	raycaster = new THREE.Raycaster();
+  raycaster = new THREE.Raycaster();
 
-	// events
-	document.addEventListener('mousemove', onDocumentMouseMove, false);
-	document.addEventListener('touchstart', onDocumentTouchStart, false);
-	document.addEventListener('touchmove', onDocumentTouchMove, false);
-	document.addEventListener('click', onMouseClick, false);
+  // events
+  document.addEventListener("mousemove", onDocumentMouseMove, false);
+  document.addEventListener("touchstart", onDocumentTouchStart, false);
+  document.addEventListener("touchmove", onDocumentTouchMove, false);
+  document.addEventListener("click", onMouseClick, false);
 
-	// dom link
-	var carte = document.getElementById("carte");
-	carte.addEventListener('click', introCamera, false);
+  // dom link
+  var carte = document.getElementById("carte");
+  carte.addEventListener("click", introCamera, false);
 
-	window.addEventListener('resize', onWindowResize, false);
+  window.addEventListener("resize", onWindowResize, false);
 }
 
 function makeGlowingParticles() {
-	var particleTexture = new THREE.TextureLoader().load('../src/assets/img/texture_particules/particule_10_2.png');
+  var particleTexture = new THREE.TextureLoader().load("../src/assets/img/texture_particules/particule_10_2.png");
 
-	particleGroup = new THREE.Object3D();
-	particleAttributes = { startSize: [], startPosition: [], randomness: [] };
+  particleGroup = new THREE.Object3D();
+  particleAttributes = { startSize: [], startPosition: [], randomness: [] };
 
-	var totalParticles = 100;
-	var radiusRange = 300;
+  var totalParticles = 100;
+  var radiusRange = 300;
 
-	for (var i = 0; i < totalParticles; i++) {
-		var spriteMaterial = new THREE.SpriteMaterial({
-			map: particleTexture,
-			opacity: 0.5,
-			color: 0xffffff
-		});
+  for (var i = 0; i < totalParticles; i++) {
+    var spriteMaterial = new THREE.SpriteMaterial({
+      map: particleTexture,
+      opacity: 0.5,
+      color: 0xffffff
+    });
 
-		var sprite = new THREE.Sprite(spriteMaterial);
-		sprite.scale.set(2.5, 2.5, 1.0); // imageWidth, imageHeight
-		sprite.position.set(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5);
-		sprite.position.multiplyScalar(radiusRange);
+    var sprite = new THREE.Sprite(spriteMaterial);
+    sprite.scale.set(2.5, 2.5, 1.0); // imageWidth, imageHeight
+    sprite.position.set(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5);
+    sprite.position.multiplyScalar(radiusRange);
 
-		particleGroup.add(sprite);
-		particleAttributes.startPosition.push(sprite.position.clone());
-		particleAttributes.randomness.push(Math.random());
-	}
+    particleGroup.add(sprite);
+    particleAttributes.startPosition.push(sprite.position.clone());
+    particleAttributes.randomness.push(Math.random());
+  }
 
-	particleGroup.position.y = 50;
-	scene.add(particleGroup);
+  particleGroup.position.y = 50;
+  scene.add(particleGroup);
 }
 
 function makeSpriteArbre() {
-	var spriteMap = new THREE.TextureLoader().load("../src/assets/img/boutons/passif/bouton_1_passif.png");
-	var spriteMap2 = new THREE.TextureLoader().load("../src/assets/img/boutons/passif/bouton_2_passif.png");
-	var spriteMap3 = new THREE.TextureLoader().load("../src/assets/img/boutons/passif/bouton_3_passif.png");
-	var spriteMap4 = new THREE.TextureLoader().load("../src/assets/img/boutons/passif/bouton_4_passif.png");
+  var spriteMap = new THREE.TextureLoader().load("../src/assets/img/boutons/passif/bouton_1_passif.png");
+  var spriteMap2 = new THREE.TextureLoader().load("../src/assets/img/boutons/passif/bouton_2_passif.png");
+  var spriteMap3 = new THREE.TextureLoader().load("../src/assets/img/boutons/passif/bouton_3_passif.png");
+  var spriteMap4 = new THREE.TextureLoader().load("../src/assets/img/boutons/passif/bouton_4_passif.png");
 
-	var spriteMaterial = new THREE.SpriteMaterial({
-		map: spriteMap
-	});
+  var spriteMaterial = new THREE.SpriteMaterial({
+    map: spriteMap
+  });
 
-	var spriteMaterial2 = new THREE.SpriteMaterial({
-		map: spriteMap2
-	});
+  var spriteMaterial2 = new THREE.SpriteMaterial({
+    map: spriteMap2
+  });
 
-	var spriteMaterial3 = new THREE.SpriteMaterial({
-		map: spriteMap3
-	});
+  var spriteMaterial3 = new THREE.SpriteMaterial({
+    map: spriteMap3
+  });
 
-	var spriteMaterial4 = new THREE.SpriteMaterial({
-		map: spriteMap4 //color: 0x4e4e4e
-	});
+  var spriteMaterial4 = new THREE.SpriteMaterial({
+    map: spriteMap4 //color: 0x4e4e4e
+  });
 
-	spriteArbre1 = new THREE.Sprite(spriteMaterial);
-	spriteArbre1.name = "spriteArbre1";
-	spriteArbre1.position.set(-170, 432, 130);
-	spriteArbre1.scale.set(15, 15, 15);
-	sprites.push(spriteArbre1);
-	scene.add(spriteArbre1);
+  spriteArbre1 = new THREE.Sprite(spriteMaterial);
+  spriteArbre1.name = "spriteArbre1";
+  spriteArbre1.position.set(-170, 432, 130);
+  spriteArbre1.scale.set(15, 15, 15);
+  sprites.push(spriteArbre1);
+  scene.add(spriteArbre1);
 
-	spriteArbre2 = new THREE.Sprite(spriteMaterial2);
-	spriteArbre2.name = "spriteArbre2";
-	spriteArbre2.position.set(-28, 440, 0);
-	spriteArbre2.scale.set(15, 15, 15);
-	sprites.push(spriteArbre2);
-	scene.add(spriteArbre2);
+  spriteArbre2 = new THREE.Sprite(spriteMaterial2);
+  spriteArbre2.name = "spriteArbre2";
+  spriteArbre2.position.set(-28, 440, 0);
+  spriteArbre2.scale.set(15, 15, 15);
+  sprites.push(spriteArbre2);
+  scene.add(spriteArbre2);
 
-	spriteArbre3 = new THREE.Sprite(spriteMaterial3);
-	spriteArbre3.name = "spriteArbre3";
-	spriteArbre3.position.set(90, 435, 20);
-	spriteArbre3.scale.set(15, 15, 15);
-	sprites.push(spriteArbre3);
-	scene.add(spriteArbre3);
+  spriteArbre3 = new THREE.Sprite(spriteMaterial3);
+  spriteArbre3.name = "spriteArbre3";
+  spriteArbre3.position.set(90, 435, 20);
+  spriteArbre3.scale.set(15, 15, 15);
+  sprites.push(spriteArbre3);
+  scene.add(spriteArbre3);
 
-	spriteArbre4 = new THREE.Sprite(spriteMaterial4);
-	spriteArbre4.name = "spriteArbre4";
-	spriteArbre4.position.set(210, 235, -20);
-	spriteArbre4.scale.set(15, 15, 15);
-	sprites.push(spriteArbre4);
-	scene.add(spriteArbre4);
+  spriteArbre4 = new THREE.Sprite(spriteMaterial4);
+  spriteArbre4.name = "spriteArbre4";
+  spriteArbre4.position.set(210, 235, -20);
+  spriteArbre4.scale.set(15, 15, 15);
+  sprites.push(spriteArbre4);
+  scene.add(spriteArbre4);
 }
 
 // particles
 function makeData() {
+  geometry = new THREE.Geometry();
+  geometry.verticesNeedUpdate = true;
 
-	geometry = new THREE.Geometry();
-	geometry.verticesNeedUpdate = true;
+  materials = new THREE.PointsMaterial({
+    color: 0x353535,
+    transparent: true,
+    size: 1.5
+    /*,
+    size: 20, 
+    map: new THREE.TextureLoader().load("assets/img/particle2.png"),
+    depthTest: true, 
+    transparent: true,
+    blending: THREE.SubtractiveBlending*/
+  });
 
-	materials = new THREE.PointsMaterial({
-		color: 0x353535,
-		transparent: true,
-		size: 1.5
-		/*,
-  size: 20, 
-  map: new THREE.TextureLoader().load("assets/img/particle2.png"),
-  depthTest: true, 
-  transparent: true,
-  blending: THREE.SubtractiveBlending*/
-	});
+  // Data: json load
+  var loader = new THREE.FileLoader(loadingManager);
+  loader.load("../src/assets/data/json/dataFire.js", function (data) {
+    // strig to object
+    var dataObject = JSON.parse(data);
+    numberFires = dataObject.length;
 
-	// Data: json load
-	var loader = new THREE.FileLoader(loadingManager);
-	loader.load('../src/assets/data/json/dataFire.js', function (data) {
-		// strig to object
-		var dataObject = JSON.parse(data);
-		numberFires = dataObject.length;
+    for (var i = 0; i < dataObject.length; i++) {
+      latitudeCoord = dataObject[i]["latitude"];
+      longitudeCoord = dataObject[i]["longitude"];
+      brightness = dataObject[i]["brightness"];
+      //console.log('lat: ' + latitudeCoord + ', long: ' + longitudeCoord + ', bright: ' + brightness)
 
-		for (var i = 0; i < dataObject.length; i++) {
+      var vertex = new THREE.Vector3();
+      vertex.y = THREE.Math.mapLinear(latitudeCoord, -90, 90, -131, 131);
+      vertex.x = THREE.Math.mapLinear(longitudeCoord, -180, 180, -198, 198);
+      vertex.z = Math.floor(Math.random() * 0.5) + Math.sin(50) * (i / 20);
+      geometry.vertices.push(vertex);
 
-			latitudeCoord = dataObject[i]['latitude'];
-			longitudeCoord = dataObject[i]['longitude'];
-			brightness = dataObject[i]['brightness'];
-			//console.log('lat: ' + latitudeCoord + ', long: ' + longitudeCoord + ', bright: ' + brightness)
+      //console.log(dataObject.length + ' particles')
+      particles = new THREE.Points(geometry, materials);
+    }
 
-			var vertex = new THREE.Vector3();
-			vertex.y = THREE.Math.mapLinear(latitudeCoord, -90, 90, -131, 131);
-			vertex.x = THREE.Math.mapLinear(longitudeCoord, -180, 180, -198, 198);
-			vertex.z = Math.floor(Math.random() * 0.5) + Math.sin(50) * (i / 20);
-			geometry.vertices.push(vertex);
-
-			//console.log(dataObject.length + ' particles')
-			particles = new THREE.Points(geometry, materials);
-		}
-
-		particles.position.set(-25, 282, 40);
-		scene.add(particles);
-	});
+    particles.position.set(-25, 282, 40);
+    scene.add(particles);
+  });
 }
 
 /* CreateGeom */
 function makeArbre() {
+  var textureArbre = new THREE.TextureLoader().load("../src/assets/models/baking/baking_jpg/baking_2048.jpg");
 
-	var textureArbre = new THREE.TextureLoader().load("../src/assets/models/baking/baking_jpg/baking_2048.jpg");
+  var materialArbre = new THREE.MeshPhysicalMaterial({
+    flatShading: THREE.SmoothShading,
+    map: textureArbre,
+    roughness: 0.4,
+    metalness: 0.38,
+    side: THREE.DoubleSide
+  });
 
-	var materialArbre = new THREE.MeshPhysicalMaterial({
-		flatShading: THREE.SmoothShading,
-		map: textureArbre,
-		roughness: 0.40,
-		metalness: 0.380,
-		side: THREE.DoubleSide
-	});
-
-	var jsonLoader = new THREE.JSONLoader(loadingManager);
-	jsonLoader.load('../src/assets/models/arbre_3D/arbre_carte_4.js', function (geometry, materials) {
-		var arbre = new THREE.Mesh(geometry, materialArbre);
-		arbre.name = "arbre";
-		arbre.position.set(80, 0, 0);
-		arbre.scale.set(40, 40, 40);;
-		scene.add(arbre);
-	});
+  var jsonLoader = new THREE.JSONLoader(loadingManager);
+  jsonLoader.load("../src/assets/models/arbre_3D/arbre_carte_4.js", function (geometry, materials) {
+    var arbre = new THREE.Mesh(geometry, materialArbre);
+    arbre.name = "arbre";
+    arbre.position.set(80, 0, 0);
+    arbre.scale.set(40, 40, 40);
+    scene.add(arbre);
+  });
 }
 
 function aleatoire(number1, number2) {
-	return number1 + (Math.floor(Math.random() * (number2 - number1)) + 1);
+  return number1 + (Math.floor(Math.random() * (number2 - number1)) + 1);
 }
 
 function onWindowResize() {
-	windowHalfX = window.innerWidth / 2;
-	windowHalfY = window.innerHeight / 2;
+  windowHalfX = window.innerWidth / 2;
+  windowHalfY = window.innerHeight / 2;
 
-	camera.aspect = window.innerWidth / window.innerHeight;
-	camera.updateProjectionMatrix();
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
 
-	renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
 function onDocumentMouseMove(event) {
-	mouseX = event.clientX - windowHalfX;
-	mouseY = event.clientY - windowHalfY;
+  mouseX = event.clientX - windowHalfX;
+  mouseY = event.clientY - windowHalfY;
 }
 
 function onDocumentTouchStart(event) {
-	if (event.touches.length === 1) {
-		event.preventDefault();
+  if (event.touches.length === 1) {
+    event.preventDefault();
 
-		mouseX = event.touches[0].pageX - windowHalfX;
-		mouseY = event.touches[0].pageY - windowHalfY;
-	}
+    mouseX = event.touches[0].pageX - windowHalfX;
+    mouseY = event.touches[0].pageY - windowHalfY;
+  }
 }
 
 function onDocumentTouchMove(event) {
-	if (event.touches.length === 1) {
-		event.preventDefault();
+  if (event.touches.length === 1) {
+    event.preventDefault();
 
-		mouseX = event.touches[0].pageX - windowHalfX;
-		mouseY = event.touches[0].pageY - windowHalfY;
-	}
+    mouseX = event.touches[0].pageX - windowHalfX;
+    mouseY = event.touches[0].pageY - windowHalfY;
+  }
 }
 
 function onMouseClick() {
-	mouse.x = event.clientX / window.innerWidth * 2 - 1;
-	mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  mouse.x = event.clientX / window.innerWidth * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-	/* raycast */
-	raycaster.setFromCamera(mouse, camera); // update the picking ray with the camera and mouse position
-	var intersectsSprites = raycaster.intersectObjects(sprites);
+  /* raycast */
+  raycaster.setFromCamera(mouse, camera); // update the picking ray with the camera and mouse position
+  var intersectsSprites = raycaster.intersectObjects(sprites);
 
-	/* timeline */
-	var timeLine = new TimelineMax();
+  /* timeline */
+  var timeLine = new TimelineMax();
 
-	/* zoom */
-	var zoom = { value: camera.zoom };
-	var zoomEnd = { value: 1.5 };
+  /* zoom */
+  var zoom = { value: camera.zoom };
+  var zoomEnd = { value: 1.5 };
 
-	/* dom */
-	var humainsScore = document.getElementById("humainsScore");
-	var contenuScore = document.getElementById("contenuScore");
+  /* dom */
+  var humainsScore = document.getElementById("humainsScore");
+  var contenuScore = document.getElementById("contenuScore");
 
-	for (var i = 0; i < intersectsSprites.length; i++) {
-		var INTERSECTED = intersectsSprites[0].object;
+  for (var i = 0; i < intersectsSprites.length; i++) {
+    var INTERSECTED = intersectsSprites[0].object;
 
-		switch (INTERSECTED.name) {
-			case "spriteArbre1":
-				//console.log("intersected sprite1!")
-				INTERSECTED.material.map.image.src = "../src/assets/img/boutons/actif/bouton_1_actif.png";
+    switch (INTERSECTED.name) {
+      case "spriteArbre1":
+        //console.log("intersected sprite1!")
+        INTERSECTED.material.map.image.src = "../src/assets/img/boutons/actif/bouton_1_actif.png";
 
-				// zoom
-				zoomEnd = { value: 1.4 };
-				var tween1 = new TWEEN.Tween(zoom).to(zoomEnd, 1200).easing(TWEEN.Easing.Quartic.Out);
+        // zoom
+        zoomEnd = { value: 1.4 };
+        new TWEEN.Tween(zoom).to(zoomEnd, 1200).easing(TWEEN.Easing.Quartic.Out).onUpdate(function () {
+          camera.zoom = zoom.value;
+        }).start();
 
-				tween1.onUpdate(function () {
-					camera.zoom = zoom.value;
-				});
-				tween1.start();
+        // camera mouvement
+        new TWEEN.Tween(camera.position).delay(0).to({
+          x: -689.8957194446343,
+          y: 294.41101985134094,
+          z: 728.8884234134374
+        }, 3800).easing(TWEEN.Easing.Quartic.Out).start();
 
-				// camera mouvement
-				new TWEEN.Tween(camera.position).delay(0).to({ x: -689.8957194446343, y: 294.41101985134094, z: 728.8884234134374 }, 3800).easing(TWEEN.Easing.Quartic.Out).start();
+        // dom
+        datasSprites.humains = "0%"; //reset
+        timeLine.to("#humainsScore", 0.2, { opacity: 0, x: 0 }).to("#contenuScore", 0.3, { opacity: 0, x: 0 }, 0) //reset
+        .to(datasSprites, 2.5, {
+          humains: "90",
+          roundProps: "humains",
+          onUpdate: function onUpdate() {
+            humainsScore.innerHTML = datasSprites.humains + "%";
+            contenuScore.innerHTML = "des feux de forêts sont causés <strong>par l'homme</strong>";
+          },
+          ease: Circ.easeInOut
+        }).to("#humainsScore", 3, {
+          opacity: 1,
+          x: -10,
+          ease: Power1.easeInOut
+        }, 0.1).to("#contenuScore", 3, {
+          opacity: 1,
+          x: -35,
+          ease: Circ.easeInOut
+        }, 0.4);
 
-				// dom 
-				datasSprites.humains = "0%"; //reset
-				timeLine.to("#humainsScore", 0.2, { opacity: 0, x: 0 }).to("#contenuScore", 0.3, { opacity: 0, x: 0 }, 0) //reset
-				.to(datasSprites, 2.5, {
-					humains: "90",
-					roundProps: "humains",
-					onUpdate: updateHandler,
-					ease: Circ.easeInOut
-				}).to("#humainsScore", 3, {
-					opacity: 1,
-					x: -10,
-					ease: Power1.easeInOut
-				}, 0.1).to("#contenuScore", 3, {
-					opacity: 1,
-					x: -35,
-					ease: Circ.easeInOut
-				}, 0.4);
+        break;
 
-				var updateHandler = function updateHandler() {
-					humainsScore.innerHTML = datasSprites.humains + "%";
-					contenuScore.innerHTML = "des feux de forêts sont causés <strong>par l'homme</strong>";
-				};
+      case "spriteArbre2":
+        //console.log("intersected sprite2!")
+        INTERSECTED.material.map.image.src = "../src/assets/img/boutons/actif/bouton_2_actif.png";
 
-				break;
+        // zoom
+        zoomEnd = { value: 1.16 };
+        new TWEEN.Tween(zoom).to(zoomEnd, 1200).easing(TWEEN.Easing.Quartic.Out).onUpdate(function () {
+          camera.zoom = zoom.value;
+        }).start();
 
-			case "spriteArbre2":
-				//console.log("intersected sprite2!")
-				INTERSECTED.material.map.image.src = "../src/assets/img/boutons/actif/bouton_2_actif.png";
+        // camera mouvement
+        new TWEEN.Tween(camera.position).delay(0).to({
+          x: -600.4849092018137,
+          y: 294.4110198513408,
+          z: -804.1469463444134
+        }, 6200).easing(TWEEN.Easing.Quartic.Out).start();
 
-				// zoom
-				zoomEnd = { value: 1.16 };
-				var tween2 = new TWEEN.Tween(zoom).to(zoomEnd, 1200).easing(TWEEN.Easing.Quartic.Out);
+        // dom
+        datasSprites.dataJour = "0"; //reset
+        timeLine.to("#humainsScore", 0.2, { opacity: 0, x: 0 }).to("#contenuScore", 0.3, { opacity: 0, x: 0 }, 0) //reset
+        .to(datasSprites, 2.5, {
+          dataJour: "14598",
+          roundProps: "dataJour",
+          onUpdate: function onUpdate() {
+            humainsScore.innerHTML = datasSprites.dataJour;
+            contenuScore.innerHTML = "feux de forêts signalés en <strong> une journée seulement</strong>, <br>le <strong>22 novembre</strong> 2017";
+          },
+          ease: Circ.easeInOut
+        }).to("#humainsScore", 3, {
+          opacity: 1,
+          x: -10,
+          ease: Power1.easeInOut
+        }, 0.1).to("#contenuScore", 3, {
+          opacity: 1,
+          x: -35,
+          ease: Circ.easeInOut
+        }, 0.4);
 
-				tween2.onUpdate(function () {
-					camera.zoom = zoom.value;
-				});
-				tween2.start();
+        break;
 
-				// camera mouvement
-				new TWEEN.Tween(camera.position).delay(0).to({ x: -600.4849092018137, y: 294.4110198513408, z: -804.1469463444134 }, 6200).easing(TWEEN.Easing.Quartic.Out).start();
+      case "spriteArbre3":
+        //console.log("intersected sprite3!")
+        INTERSECTED.material.map.image.src = "../src/assets/img/boutons/actif/bouton_3_actif.png";
 
-				// dom
-				datasSprites.dataJour = "0"; //reset
-				timeLine.to("#humainsScore", 0.2, { opacity: 0, x: 0 }).to("#contenuScore", 0.3, { opacity: 0, x: 0 }, 0) //reset
-				.to(datasSprites, 2.5, {
-					dataJour: "14598",
-					roundProps: "dataJour",
-					onUpdate: updateHandler2,
-					ease: Circ.easeInOut
-				}).to("#humainsScore", 3, {
-					opacity: 1,
-					x: -10,
-					ease: Power1.easeInOut
-				}, 0.1).to("#contenuScore", 3, {
-					opacity: 1,
-					x: -35,
-					ease: Circ.easeInOut
-				}, 0.4);
+        // zoom
+        zoomEnd = { value: 1.5 };
+        new TWEEN.Tween(zoom).to(zoomEnd, 1200).easing(TWEEN.Easing.Quartic.Out).onUpdate(function () {
+          camera.zoom = zoom.value;
+        }).start();
 
-				var updateHandler2 = function updateHandler2() {
-					humainsScore.innerHTML = datasSprites.dataJour;
-					contenuScore.innerHTML = "feux de forêts signalés en <strong> une journée seulement</strong>, <br>le <strong>22 novembre</strong> 2017";
-				};
+        // camera mouvement
+        new TWEEN.Tween(camera.position).delay(0).to({
+          x: 210.06001268852506,
+          y: 294.4110198513408,
+          z: 981.3812860267166
+        }, 5000).easing(TWEEN.Easing.Quartic.Out).start();
 
-				break;
+        // dom
+        datasSprites.dataAnnee = "0"; // reset
+        timeLine.to("#humainsScore", 0.2, { opacity: 0, x: 0 }).to("#contenuScore", 0.3, { opacity: 0, x: 0 }, 0) //reset
+        .to(datasSprites, 5.5, {
+          dataAnnee: "15",
+          roundProps: "dataAnnee",
+          onUpdate: function onUpdate() {
+            humainsScore.innerHTML = datasSprites.dataAnnee + " millions";
+            contenuScore.innerHTML = "d'hectares brulés, c'est le <strong>plus grand feu de l'histoire</strong> en Russie, 2003 ";
+          },
+          ease: Circ.easeInOut
+        }).to("#humainsScore", 3, {
+          opacity: 1,
+          x: -10,
+          ease: Power1.easeInOut
+        }, 0.1).to("#contenuScore", 3, {
+          opacity: 1,
+          x: -35,
+          ease: Circ.easeInOut
+        }, 0.4);
 
-			case "spriteArbre3":
-				//console.log("intersected sprite3!")
-				INTERSECTED.material.map.image.src = "../src/assets/img/boutons/actif/bouton_3_actif.png";
+        break;
 
-				// zoom
-				zoomEnd = { value: 1.5 };
-				var tween3 = new TWEEN.Tween(zoom).to(zoomEnd, 1200).easing(TWEEN.Easing.Quartic.Out);
+      case "spriteArbre4":
+        //console.log("intersected sprite4!")
+        INTERSECTED.material.map.image.src = "../src/assets/img/boutons/actif/bouton_4_actif.png";
 
-				tween3.onUpdate(function () {
-					camera.zoom = zoom.value;
-				});
-				tween3.start();
+        // zoom
+        zoomEnd = { value: 1.3 };
+        var tween4 = new TWEEN.Tween(zoom).to(zoomEnd, 1200).easing(TWEEN.Easing.Quartic.Out).onUpdate(function () {
+          camera.zoom = zoom.value;
+        });
+        tween4.start();
 
-				// camera mouvement
-				new TWEEN.Tween(camera.position).delay(0).to({ x: 210.06001268852506, y: 294.4110198513408, z: 981.3812860267166 }, 5000).easing(TWEEN.Easing.Quartic.Out).start();
+        // camera mouvement
+        new TWEEN.Tween(camera.position).delay(0).to({
+          x: 969.423833763168,
+          y: 294.41101985134094,
+          z: -259.7149745896017
+        }, 6200).easing(TWEEN.Easing.Quartic.Out).start();
 
-				// dom 
-				datasSprites.dataAnnee = "0"; // reset
-				timeLine.to("#humainsScore", 0.2, { opacity: 0, x: 0 }).to("#contenuScore", 0.3, { opacity: 0, x: 0 }, 0) //reset
-				.to(datasSprites, 5.5, {
-					dataAnnee: "15",
-					roundProps: "dataAnnee",
-					onUpdate: updateHandler3,
-					ease: Circ.easeInOut
-				}).to("#humainsScore", 3, {
-					opacity: 1,
-					x: -10,
-					ease: Power1.easeInOut
-				}, 0.1).to("#contenuScore", 3, {
-					opacity: 1,
-					x: -35,
-					ease: Circ.easeInOut
-				}, 0.4);
+        // dom
+        datasSprites.dataGaz = "0"; // reset
+        timeLine.to("#humainsScore", 0.2, { opacity: 0, x: 0 }).to("#contenuScore", 0.3, { opacity: 0, x: 0 }, 0) //reset
+        .to(datasSprites, 5.5, {
+          dataGaz: "20",
+          roundProps: "dataGaz",
+          onUpdate: function onUpdate() {
+            humainsScore.innerHTML = datasSprites.dataGaz + "%";
+            contenuScore.innerHTML = "la destruction des forêts, c'est <br><strong> 20% des émissions globales des gaz à effets de serre</strong><br>en plus dans le monde ";
+          },
+          ease: Circ.easeInOut
+        }).to("#humainsScore", 3, {
+          opacity: 1,
+          x: -10,
+          ease: Power1.easeInOut
+        }, 0.1).to("#contenuScore", 3, {
+          opacity: 1,
+          x: -35,
+          ease: Circ.easeInOut
+        }, 0.4);
 
-				var updateHandler3 = function updateHandler3() {
-					humainsScore.innerHTML = datasSprites.dataAnnee + " millions";
-					contenuScore.innerHTML = "d'hectares brulés, c'est le <strong>plus grand feu de l'histoire</strong> en Russie, 2003 ";
-				};
-
-				break;
-
-			case "spriteArbre4":
-				//console.log("intersected sprite4!")
-				INTERSECTED.material.map.image.src = "../src/assets/img/boutons/actif/bouton_4_actif.png";
-
-				// zoom
-				zoomEnd = { value: 1.3 };
-				var tween4 = new TWEEN.Tween(zoom).to(zoomEnd, 1200).easing(TWEEN.Easing.Quartic.Out);
-
-				tween4.onUpdate(function () {
-					camera.zoom = zoom.value;
-				});
-				tween4.start();
-
-				// camera mouvement
-				new TWEEN.Tween(camera.position).delay(0).to({ x: 969.423833763168, y: 294.41101985134094, z: -259.7149745896017 }, 6200).easing(TWEEN.Easing.Quartic.Out).start();
-
-				// dom 
-				datasSprites.dataGaz = "0"; // reset
-				timeLine.to("#humainsScore", 0.2, { opacity: 0, x: 0 }).to("#contenuScore", 0.3, { opacity: 0, x: 0 }, 0) //reset
-				.to(datasSprites, 5.5, {
-					dataGaz: "20",
-					roundProps: "dataGaz",
-					onUpdate: updateHandler5,
-					ease: Circ.easeInOut
-				}).to("#humainsScore", 3, {
-					opacity: 1,
-					x: -10,
-					ease: Power1.easeInOut
-				}, 0.1).to("#contenuScore", 3, {
-					opacity: 1,
-					x: -35,
-					ease: Circ.easeInOut
-				}, 0.4);
-
-				var updateHandler5 = function updateHandler5() {
-					humainsScore.innerHTML = datasSprites.dataGaz + "%";
-					contenuScore.innerHTML = "la destruction des forêts, c'est <br><strong> 20% des émissions globales des gaz à effets de serre</strong><br>en plus dans le monde ";
-				};
-
-				break;
-		}
-	}
+        break;
+    }
+  }
 }
 
 function introCamera() {
+  // zoom
+  var zoom = { value: camera.zoom };
+  var zoomDefault = { value: 1 };
 
-	// zoom
-	var zoom = { value: camera.zoom };
-	var zoomDefault = { value: 1 };
+  var tweenDefault = new TWEEN.Tween(zoom).to(zoomDefault, 1200).easing(TWEEN.Easing.Quartic.Out);
 
-	var tweenDefault = new TWEEN.Tween(zoom).to(zoomDefault, 1200).easing(TWEEN.Easing.Quartic.Out);
+  tweenDefault.onUpdate(function () {
+    camera.zoom = zoom.value;
+  });
+  tweenDefault.start();
 
-	tweenDefault.onUpdate(function () {
-		camera.zoom = zoom.value;
-	});
-	tweenDefault.start();
-
-	// camera position
-	new TWEEN.Tween(camera.position).delay(300).to({ x: 0, y: 300, z: 1000 }, 4000).easing(TWEEN.Easing.Cubic.InOut).start();
+  // camera position
+  new TWEEN.Tween(camera.position).delay(300).to({ x: 0, y: 300, z: 1000 }, 4000).easing(TWEEN.Easing.Cubic.InOut).start();
 }
 
 function animate() {
+  camera.updateProjectionMatrix();
+  requestAnimationFrame(animate);
 
-	camera.updateProjectionMatrix();
-	requestAnimationFrame(animate);
-
-	render();
-	//stats.update();
-	controls.update();
+  render();
+  //stats.update();
+  controls.update();
 }
 
 function render() {
+  TWEEN.update();
+  var time = Date.now() * 0.005;
 
-	TWEEN.update();
-	var time = Date.now() * 0.005;
+  /* glowing particles */
+  for (var i = 0; i < particleGroup.children.length; i++) {
+    var sprite = particleGroup.children[i];
 
-	/* glowing particles */
-	for (var i = 0; i < particleGroup.children.length; i++) {
-		var sprite = particleGroup.children[i];
+    // particle wiggle
+    var wiggleScale = 2;
+    sprite.position.x += wiggleScale * (Math.random() - 0.5);
+    sprite.position.y += wiggleScale * (Math.random() - 0.5);
+    sprite.position.z += wiggleScale * (Math.random() - 0.5);
 
-		// particle wiggle
-		var wiggleScale = 2;
-		sprite.position.x += wiggleScale * (Math.random() - 0.5);
-		sprite.position.y += wiggleScale * (Math.random() - 0.5);
-		sprite.position.z += wiggleScale * (Math.random() - 0.5);
+    // pulse away/towards center
+    // individual rates of movement
+    var pulseFactor = Math.sin(particleAttributes.randomness[i] * time) * 0.025 + 3.5;
+    sprite.position.x = particleAttributes.startPosition[i].x * pulseFactor;
+    sprite.position.y = particleAttributes.startPosition[i].y * pulseFactor; //* 0.005;
+    sprite.position.z = particleAttributes.startPosition[i].z * pulseFactor;
+  }
 
-		// pulse away/towards center
-		// individual rates of movement
-		var pulseFactor = Math.sin(particleAttributes.randomness[i] * time) * 0.025 + 3.5;
-		sprite.position.x = particleAttributes.startPosition[i].x * pulseFactor;
-		sprite.position.y = particleAttributes.startPosition[i].y * pulseFactor; //* 0.005;
-		sprite.position.z = particleAttributes.startPosition[i].z * pulseFactor;
-	}
+  // rotate the entire group
+  particleGroup.rotation.y = time * 0.005;
 
-	// rotate the entire group
-	particleGroup.rotation.y = time * 0.005;
+  for (var j = 0; j < geometry.vertices.length; j++) {
+    var particle = geometry.vertices[j];
 
-	for (var j = 0; j < geometry.vertices.length; j++) {
-		var particle = geometry.vertices[j];
+    /* particle wiggle */
+    var _wiggleScale = 3;
+    particle.x += _wiggleScale * (Math.random() - 0.5);
+    particle.y += _wiggleScale * (Math.random() - 0.5);
+    particle.z += _wiggleScale * (Math.random() - 0.5);
+  }
 
-		/* particle wiggle */
-		var _wiggleScale = 3;
-		particle.x += _wiggleScale * (Math.random() - 0.5);
-		particle.y += _wiggleScale * (Math.random() - 0.5);
-		particle.z += _wiggleScale * (Math.random() - 0.5);
-	}
+  camera.lookAt(new THREE.Vector3(0, 300, 0));
 
-	camera.lookAt(new THREE.Vector3(0, 300, 0));
-
-	renderer.render(scene, camera);
+  renderer.render(scene, camera);
 }
 
 /***/ }),
