@@ -26,10 +26,6 @@ export default class Arbre {
       this.app.loadingManager,
       { posX: 80, posY: 0, posZ: 0, scale: 40 }
     );
-
-    // flatShading: THREE.SmoothShading,
-    // roughness: 0.4,
-    // metalness: 0.38,
   }
 
   makeDataParticles() {

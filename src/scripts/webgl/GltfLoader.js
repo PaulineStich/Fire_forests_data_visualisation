@@ -1,3 +1,4 @@
+import { Color } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 export default class GltfLoader {
@@ -6,7 +7,7 @@ export default class GltfLoader {
     path,
     scene,
     loadingManager,
-    { posX = 0, posY = 0, posZ = 0, scale = 1 }
+    { posX = 0, posY = 0, posZ = 0, scale = 1, color = 0x707070 }
   ) {
     this.name = name;
     this.scene = scene;
@@ -23,6 +24,12 @@ export default class GltfLoader {
         this.gltf.scale.y = scale;
         this.gltf.scale.z = scale;
         this.scene.add(this.gltf);
+
+        this.gltf.traverse(function (child) {
+          if (child.isMesh) {
+            child.material.emissive = new Color(color);
+          }
+        });
       },
       // called while loading is progressing
       (xhr) => {

@@ -80,7 +80,7 @@ export default class Scene {
 
   initLight() {
     // ambientlight
-    this.ambientlight = new THREE.AmbientLight(0xffffff, 1.8);
+    this.ambientlight = new THREE.AmbientLight(0xffffff, 1);
     this.scene.add(this.ambientlight);
   }
 
