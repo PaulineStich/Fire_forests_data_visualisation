@@ -1,9 +1,10 @@
 import * as THREE from "three";
 import * as TWEEN from "tween";
 import { TweenMax } from "gsap";
-import glslify from "glslify";
+// import glslify from "glslify";
 import AsyncPreloader from "async-preloader";
-import OrbitControls from "./three/controls/OrbitControls";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+
 import {
   EffectComposer,
   EffectPass,
@@ -91,10 +92,17 @@ export default class Scene {
   }
 
   initControls() {
-    this.orbitControls = new THREE.OrbitControls(
+    this.orbitControls = new OrbitControls(
       this.camera,
       this.renderer.domElement
     );
+    this.orbitControls.target = new THREE.Vector3(0, -350, 0);
+    this.orbitControls.minZoom = 1;
+    this.orbitControls.maxZoom = 1.8;
+    this.orbitControls.minPolarAngle = 1; // radians
+    this.orbitControls.maxPolarAngle = 1; // radians
+    this.orbitControls.minAzimuthAngle = -Infinity; // radians
+    this.orbitControls.maxAzimuthAngle = Infinity; // radians
   }
 
   initRaycaster() {

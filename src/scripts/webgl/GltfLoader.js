@@ -1,5 +1,4 @@
-import * as THREE from "three";
-import GLTFLoader from "./three/loader/GLTFLoader";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 export default class GltfLoader {
   constructor(
@@ -11,7 +10,7 @@ export default class GltfLoader {
   ) {
     this.name = name;
     this.scene = scene;
-    this.loader = new THREE.GLTFLoader(loadingManager);
+    this.loader = new GLTFLoader(loadingManager);
 
     this.loader.load(
       path,
