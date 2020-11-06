@@ -1,0 +1,36 @@
+@import "./components/tweakpane.scss";
+@import "./components/loader.scss";
+@import "./components/header.scss";
+@import "./components/content.scss";
+@import "./components/footer.scss";
+// @import "./components/fonts.scss";
+
+html,
+body,
+.container {
+  height: 100%;
+  width: 100%;
+  display: block;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: "circular-black", sans-serif;
+  background-color: #f6f7f4;
+}
+
+h2 {
+  line-height: 18px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+strong {
+  color: #4e4e4e;
+  opacity: 0.8;
+}

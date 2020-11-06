@@ -1,48 +1,62 @@
 {
-  "name": "Data-visualisation",
-  "version": "1.0.0",
-  "description": "Three.js data visualisation.  Earths latest forest fire datas. Collaboration with Remi Elliet, designer & student at Gobelins, BDDI project.",
-  "main": "index.js",
+  "name": "fire",
+  "version": "1.0.6",
+  "description": "Earths latest forest fire datas. Three.js data visualisation project",
+  "keywords": [
+    "three.js",
+    "webpack",
+    "glsl",
+    "glslify",
+    "fire",
+    "forest",
+    "data",
+    "visualisation",
+    "earth",
+    "gobelins"
+  ],
+  "author": {
+    "name": "Pauline Stichelbaut & Rémi Elliet",
+    "url": "http://fireforest.com"
+  },
+  "license": "MIT",
+  "sideEffects": false,
   "scripts": {
-    "build": "webpack --config webpack.config.js --watch",
-    "dev": "webpack-dev-server --open webpack --watch",
-    "prod": "NODE_ENV=production npm run build"
+    "build": "webpack -p --config config/prod.js",
+    "start": "webpack-dev-server --config config/dev.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/PaulineStich/Data-visualisation.git"
+  "dependencies": {
+    "async-preloader": "^4.9.2",
+    "domready": "^1.0.8",
+    "gsap": "^3.5.1",
+    "postprocessing": "^6.17.4",
+    "stats.js": "^0.17.0",
+    "three": "^0.121.1",
+    "tweakpane": "^1.5.5",
+    "tween": "^0.9.0"
   },
-  "keywords": [],
-  "author": "Pauline Stichelbaut",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/PaulineStich/Data-visualisation/issues"
-  },
-  "homepage": "https://github.com/PaulineStich/Data-visualisation#readme",
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.5",
-    "babel-minify-webpack-plugin": "^0.3.1",
-    "babel-preset-env": "^1.7.0",
-    "css-loader": "^1.0.0",
-    "file-loader": "^1.1.11",
-    "gulp": "^3.9.1",
-    "gulp-cli": "^2.0.1",
-    "gulp-livereload": "^3.8.1",
-    "gulp-ruby-sass": "^3.0.0",
-    "gulp-uglify": "^3.0.0",
-    "image-webpack-loader": "^4.3.1",
-    "mini-css-extract-plugin": "^0.4.1",
-    "node-sass": "^4.14.1",
-    "optimize-css-assets-webpack-plugin": "^5.0.0",
-    "purify-css": "^1.2.5",
-    "purifycss-webpack": "^0.7.0",
-    "sass-loader": "^7.0.3",
-    "style-loader": "^0.21.0",
-    "uglifyjs-webpack-plugin": "^1.2.7",
-    "webpack": "^4.16.3",
-    "webpack-cli": "^3.1.0",
-    "webpack-closure-compiler": "^2.1.6",
-    "webpack-dev-server": "^3.11.0"
+    "@babel/core": "^7.11.6",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/polyfill": "^7.11.5",
+    "@babel/preset-env": "^7.11.5",
+    "babel-loader": "^8.1.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^6.2.1",
+    "css-loader": "^4.3.0",
+    "extract-loader": "^5.1.0",
+    "file-loader": "^6.1.1",
+    "glslify": "^7.1.1",
+    "glslify-import-loader": "^0.1.2",
+    "glslify-loader": "^2.0.0",
+    "html-webpack-plugin": "^4.5.0",
+    "imports-loader": "^1.2.0",
+    "raw-loader": "^4.0.2",
+    "sass": "^1.27.0",
+    "sass-loader": "^10.0.3",
+    "style-loader": "^2.0.0",
+    "webpack": "^4.37.0",
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^5.2.0"
   }
 }

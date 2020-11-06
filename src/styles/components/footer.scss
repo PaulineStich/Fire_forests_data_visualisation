@@ -1,0 +1,25 @@
+footer {
+  position: absolute;
+  right: 3%;
+  bottom: 4%;
+  color: rgba(94, 94, 94, 0.5);
+  font-size: 10px;
+  p {
+    margin: 0;
+    position: relative;
+    top: 14px;
+    right: 50px;
+  }
+  ul {
+    float: left;
+    margin: 0;
+    li {
+      list-style: none;
+      line-height: 18px;
+    }
+  }
+  a {
+    text-decoration: none;
+    color: rgba(94, 94, 94, 0.4);
+  }
+}
