@@ -20,7 +20,7 @@ import GlowingParticles from "./GlowingParticles";
 import {
   tweenCameraZoom,
   tweenCameraPosition,
-  animateLoader,
+  fadeOutLoader,
 } from "./Animations";
 
 export default class Scene {
@@ -170,6 +170,7 @@ export default class Scene {
     this.loadingManager.onLoad = () => {
       if (this.loaded) {
         // when loading complete
+        fadeOutLoader();
         this.cameraReset();
       }
     };

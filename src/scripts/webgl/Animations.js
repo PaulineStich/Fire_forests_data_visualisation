@@ -72,7 +72,12 @@ export const animateLoader = (progress) => {
     },
     duration: 1.5,
     ease: Circ.easeIn,
-  }).to("#loader", {
+  });
+};
+
+export const fadeOutLoader = () => {
+  let tl = gsap.timeline();
+  tl.to("#loader", {
     delay: 0.4,
     opacity: 0,
     display: "none",
