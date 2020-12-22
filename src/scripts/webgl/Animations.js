@@ -61,8 +61,8 @@ export const animateText = (dom) => {
     );
 };
 
-export const animateLoader = () => {
-  let itemsLoading = { amount: "0" };
+export const animateLoader = (progress) => {
+  let itemsLoading = { amount: progress };
   let tl = gsap.timeline();
   tl.to(itemsLoading, {
     amount: "100",
@@ -70,8 +70,8 @@ export const animateLoader = () => {
       let loadingNumber = document.getElementById("loaderNumber");
       loadingNumber.innerHTML = itemsLoading.amount + " %";
     },
-    duration: 0.5,
-    ease: Circ.easeInOut,
+    duration: 1.5,
+    ease: Circ.easeIn,
   }).to("#loader", {
     delay: 0.4,
     opacity: 0,

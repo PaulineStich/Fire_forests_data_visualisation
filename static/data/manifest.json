@@ -1,6 +1,17 @@
 {
 	"items":
 	[
+		{ "id": "arbre", "src": "assets/models/arbre.glb" },
+		{ "id": "texture_typo", "src": "assets/images/texture_font/texture_typo.jpg" },
+		{ "id": "particule_10_2", "src": "assets/images/texture_particules/particule_10_2.png" },
+		{ "id": "bouton_1_actif", "src": "assets/images/boutons/actif/bouton_1_actif.png" },
+		{ "id": "bouton_2_actif", "src": "assets/images/boutons/actif/bouton_2_actif.png" },
+		{ "id": "bouton_3_actif", "src": "assets/images/boutons/actif/bouton_3_actif.png" },
+		{ "id": "bouton_4_actif", "src": "assets/images/boutons/actif/bouton_4_actif.png" },
+		{ "id": "bouton_1_passif", "src": "assets/images/boutons/passif/bouton_1_passif.png" },
+		{ "id": "bouton_2_passif", "src": "assets/images/boutons/passif/bouton_2_passif.png" },
+		{ "id": "bouton_3_passif", "src": "assets/images/boutons/passif/bouton_3_passif.png" },
+		{ "id": "bouton_4_passif", "src": "assets/images/boutons/passif/bouton_4_passif.png" },
 		{ "id": "smaa-area", "src": "assets/images/smaa-area.png" },
 		{ "id": "smaa-search", "src": "assets/images/smaa-search.png" }
 	]

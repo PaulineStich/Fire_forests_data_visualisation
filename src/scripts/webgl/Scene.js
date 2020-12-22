@@ -170,7 +170,6 @@ export default class Scene {
     this.loadingManager.onLoad = () => {
       if (this.loaded) {
         // when loading complete
-        animateLoader();
         this.cameraReset();
       }
     };
