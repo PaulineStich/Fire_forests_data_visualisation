@@ -1,5 +1,6 @@
 import { Color } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 
 export default class GltfLoader {
   constructor(
@@ -12,7 +13,9 @@ export default class GltfLoader {
     this.name = name;
     this.scene = scene;
     this.loader = new GLTFLoader(loadingManager);
-
+    this.dracoLoader = new DRACOLoader();
+    this.dracoLoader.setDecoderPath("three/examples/jsm/loaders/DRACOLoader");
+    this.loader.setDRACOLoader(this.dracoLoader);
     this.loader.load(
       path,
       (gltf) => {
