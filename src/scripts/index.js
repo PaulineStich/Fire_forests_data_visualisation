@@ -21,7 +21,7 @@ const preload = () => {
     pProgress.map((p) => {
       p.then(() => {
         loadedCount++;
-        progress = Math.floor(loadedCount / pProgress.length);
+        progress = (loadedCount / pProgress.length) * 100;
         // console.log(progress);
         animateLoader(progress);
       });

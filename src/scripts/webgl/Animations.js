@@ -62,10 +62,10 @@ export const animateText = (dom) => {
 };
 
 export const animateLoader = (progress) => {
-  let itemsLoading = { amount: progress };
+  let itemsLoading = { amount: "0" };
   let tl = gsap.timeline();
   tl.to(itemsLoading, {
-    amount: "100",
+    amount: progress,
     onUpdate: () => {
       let loadingNumber = document.getElementById("loaderNumber");
       loadingNumber.innerHTML = itemsLoading.amount + " %";
