@@ -22,7 +22,8 @@
   "sideEffects": false,
   "scripts": {
     "build": "webpack -p --config config/prod.js",
-    "start": "webpack-dev-server --config config/dev.js"
+    "start": "webpack-dev-server --config config/dev.js",
+    "lighthouse": "lhci autorun"
   },
   "dependencies": {
     "async-preloader": "^4.9.2",
