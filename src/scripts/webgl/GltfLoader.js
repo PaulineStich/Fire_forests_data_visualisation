@@ -14,7 +14,7 @@ export default class GltfLoader {
     this.scene = scene;
     this.loader = new GLTFLoader(loadingManager);
     this.dracoLoader = new DRACOLoader();
-    this.dracoLoader.setDecoderPath("three/examples/jsm/loaders/DRACOLoader");
+    this.dracoLoader.setDecoderPath("draco/");
     this.loader.setDRACOLoader(this.dracoLoader);
     this.loader.load(
       path,

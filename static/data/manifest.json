@@ -11,8 +11,6 @@
 		{ "id": "bouton_1_passif", "src": "assets/images/boutons/passif/bouton_1_passif.png" },
 		{ "id": "bouton_2_passif", "src": "assets/images/boutons/passif/bouton_2_passif.png" },
 		{ "id": "bouton_3_passif", "src": "assets/images/boutons/passif/bouton_3_passif.png" },
-		{ "id": "bouton_4_passif", "src": "assets/images/boutons/passif/bouton_4_passif.png" },
-		{ "id": "smaa-area", "src": "assets/images/smaa-area.png" },
-		{ "id": "smaa-search", "src": "assets/images/smaa-search.png" }
+		{ "id": "bouton_4_passif", "src": "assets/images/boutons/passif/bouton_4_passif.png" }
 	]
 }

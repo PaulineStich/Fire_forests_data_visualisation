@@ -41,7 +41,7 @@ export default class Arbre {
     // Data: json load
     this.loader = new THREE.FileLoader(this.app.loadingManager);
     this.loader.load(
-      "data/dataFire.js",
+      "data/dataFire-min.js",
 
       (data) => {
         // strig to object
