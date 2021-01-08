@@ -4,6 +4,7 @@ import {
   tweenCameraPosition,
   animateText,
 } from "./Animations";
+import Sound from "../sounds/Sound";
 
 import sprites from "../../../static/data/sprites";
 import dom from "../../../static/data/dom";
@@ -12,6 +13,8 @@ export default class Sprite {
   constructor(app) {
     this.app = app;
     this.array = [];
+
+    this.initSounds();
   }
 
   create(name, url, { posX = 0, posY = 0, posZ = 0, scale = 1 }) {
@@ -50,9 +53,14 @@ export default class Sprite {
                 sprite.hover.camera.ms,
                 this.app.camera
               );
+              this.openSound.play();
 
               if (dom.name === sprite.name) {
                 animateText(dom);
+                setTimeout(() => {
+                  this.loadingSound.fadeIn(1);
+                  this.loadingSound.play();
+                }, 1000);
               }
 
               break;
@@ -64,5 +72,10 @@ export default class Sprite {
 
   updateSpriteTexture(INTERSECTED, url) {
     INTERSECTED.material.map = new THREE.TextureLoader().load(url);
+  }
+
+  initSounds() {
+    this.openSound = new Sound("/assets/sounds/open2.wav");
+    this.loadingSound = new Sound("/assets/sounds/loading.wav");
   }
 }

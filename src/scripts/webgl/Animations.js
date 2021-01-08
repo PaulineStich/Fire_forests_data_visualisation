@@ -45,7 +45,7 @@ export const animateText = (dom) => {
           humainsScore.innerHTML = dom.amount + dom.type;
           contenuScore.innerHTML = dom.text;
         },
-        duration: dom.animation.ms,
+        duration: 3,
         ease: dom.animation.ease,
       }
     )

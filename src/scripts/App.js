@@ -2,6 +2,7 @@ import Scene from "./webgl/Scene";
 import GUIView from "./gui/GUIView";
 
 import styles from "../styles/main";
+import Sound from "./sounds/Sound";
 
 export default class App {
   constructor() {
@@ -11,6 +12,7 @@ export default class App {
 
   init() {
     this.initScene();
+    this.initSounds();
     this.initGUI();
     this.addEventListeners();
     this.resize();
@@ -20,6 +22,17 @@ export default class App {
   initScene() {
     this.scene = new Scene(this);
     this.container.appendChild(this.scene.renderer.domElement);
+  }
+
+  initSounds() {
+    this.ambientSound = new Sound(
+      "/assets/sounds/MapleFire.mp3",
+      true,
+      true,
+      0.2
+    );
+    this.ambientSound.fadeIn(0.2);
+    this.ambientSound.play();
   }
 
   initGUI() {

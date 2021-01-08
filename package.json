@@ -29,6 +29,7 @@
     "async-preloader": "^4.9.2",
     "domready": "^1.0.8",
     "gsap": "^3.5.1",
+    "howler": "^2.2.1",
     "postprocessing": "^6.17.4",
     "stats.js": "^0.17.0",
     "three": "^0.121.1",
