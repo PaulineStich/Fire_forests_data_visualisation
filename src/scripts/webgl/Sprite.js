@@ -75,7 +75,7 @@ export default class Sprite {
   }
 
   initSounds() {
-    this.openSound = new Sound("/assets/sounds/open2.wav");
-    this.loadingSound = new Sound("/assets/sounds/loading.wav");
+    this.openSound = new Sound("/assets/sounds/open2.mp3");
+    this.loadingSound = new Sound("/assets/sounds/loading.mp3");
   }
 }
